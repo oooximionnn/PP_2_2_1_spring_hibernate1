@@ -24,8 +24,7 @@ public class Car implements Serializable {
     public Car() {
     }
 
-    public Car(User user, String model, int series) {
-        this.user = user;
+    public Car(String model, int series) {
         this.model = model;
         this.series = series;
     }
@@ -63,9 +62,8 @@ public class Car implements Serializable {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "user=" + user +
-                ", model='" + model + '\'' +
+        return "{" +
+                "model='" + model + '\'' +
                 ", series=" + series +
                 '}';
     }

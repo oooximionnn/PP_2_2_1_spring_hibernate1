@@ -14,8 +14,13 @@ import java.util.List;
 @Repository
 @Transactional
 public class UserDaoImp implements UserDao {
-   @Autowired
+
    private SessionFactory sessionFactory;
+
+   @Autowired
+   public UserDaoImp(SessionFactory sessionFactory) {
+      this.sessionFactory = sessionFactory;
+   }
 
    @Override
    public void add(User user) {
@@ -28,18 +33,4 @@ public class UserDaoImp implements UserDao {
       TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
       return query.getResultList();
    }
-
-   @Override
-   public void addCar(Car car) {
-      sessionFactory.getCurrentSession().save(car);
-   }
-   public User getUserbyCar(Car car) {
-      String hql = "FROM Car where model = '"+ car.getModel() + "' and series = '"+ car.getSeries() +"'";
-      Query query = sessionFactory.getCurrentSession().createQuery(hql);
-      Car car1 = (Car) query.getSingleResult();
-      Query query1 = sessionFactory.getCurrentSession().createQuery("from User where car = '" + car1 + "'");
-      return  (User) query1.getSingleResult();
-   }
-
-
 }

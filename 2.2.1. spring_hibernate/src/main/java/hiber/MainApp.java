@@ -13,21 +13,20 @@ public class MainApp {
    public static void main(String[] args) throws SQLException {
       AnnotationConfigApplicationContext context = 
             new AnnotationConfigApplicationContext(AppConfig.class);
+      Car car = new Car("Audi R", 8);
+      Car car1 = new Car("GT", 40);
+      Car car2 = new Car("Corvette ZR", 1);
 
       UserService userService = context.getBean(UserService.class);
-      User user = new User("Anton", "Echmaev", "adsadas@yandex.ru");
-      User user1 = new User("Evgeniy", "Kulil", "dsdzxc@yandex.ru");
-      User user2 = new User("Kek", "Lolov", "sdfbsdnb@yandex.ru");
-      Car car = new Car(user, "Bugatti", 231);
-      Car car1 = new Car(user1, "Oka", 9009);
-      Car car2 = new Car(user2, "Lal", 111);
+
+      User user = new User("Anton", "Echmaev", "adsadas@yandex.ru", car);
+      User user1 = new User("Evgeniy", "Kulin", "dsdzxc@yandex.ru", car1);
+      User user2 = new User("Kek", "Lolov", "sdfbsdnb@yandex.ru", car2);
       userService.add(user);
       userService.add(user1);
       userService.add(user2);
-      userService.addCar(car);
-      userService.addCar(car1);
-      userService.addCar(car2);
       List<User> users = userService.listUsers();
+
       for (User user4 : users) {
          System.out.println("Id = "+user4.getId());
          System.out.println("First Name = "+user4.getFirstName());
@@ -36,7 +35,7 @@ public class MainApp {
          System.out.println();
       }
 
-      System.out.println(userService.getUserbyCar(car));
+      System.out.println(userService.getbyCar(car));
 
       context.close();
    }
